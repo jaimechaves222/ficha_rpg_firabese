@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fichas RPG • Firebase</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">◆</div>
+      <div class="title">
+        <div class="h1">Fichas RPG</div>
+        <div class="h2">Campanhas sincronizadas com Firebase</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div id="netStatus" class="pill">offline</div>
+      <div id="userPill" class="pill ghost">desconectado</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h3>1) Configure o Firebase</h3>
+      <p class="muted">
+        Abra <b>firebase-config.js</b> e cole o seu <i>firebaseConfig</i> (do console do Firebase).
+        Sem isso, o app abre, mas não salva.
+      </p>
+      <div class="row">
+        <button id="btnConfigOk" class="btn">Já configurei</button>
+        <button id="btnOpenHelp" class="btn ghost">Ver passo a passo</button>
+      </div>
+      <div id="help" class="help hidden"></div>
+    </section>
+
+    <section class="grid">
+      <section class="card">
+        <h3>2) Mestre: criar campanha</h3>
+        <div class="field">
+          <label>Nome da campanha</label>
+          <input id="campName" placeholder="Ex: Projeto Septem" />
+        </div>
+        <div class="field">
+          <label>Senha da campanha</label>
+          <input id="campPass" placeholder="Crie uma senha" type="password" />
+        </div>
+        <div class="row">
+          <button id="btnCreateCamp" class="btn">Criar</button>
+          <button id="btnCopyCamp" class="btn ghost" disabled>Copiar código</button>
+        </div>
+        <div id="createdInfo" class="callout hidden"></div>
+      </section>
+
+      <section class="card">
+        <h3>3) Jogador: entrar</h3>
+        <div class="field">
+          <label>Código da campanha</label>
+          <input id="joinId" placeholder="Ex: a1b2c3d4" />
+        </div>
+        <div class="field">
+          <label>Senha</label>
+          <input id="joinPass" placeholder="Senha da campanha" type="password" />
+        </div>
+        <div class="field">
+          <label>Seu nome (apelido)</label>
+          <input id="joinNick" placeholder="Ex: Léo / Ana / Jaime" />
+        </div>
+        <div class="row">
+          <button id="btnJoinPlayer" class="btn">Entrar como jogador</button>
+          <button id="btnJoinMaster" class="btn ghost">Entrar como mestre</button>
+        </div>
+        <div class="muted small">
+          * mestre pode editar tudo; jogador só edita a própria ficha.
+        </div>
+      </section>
+    </section>
+
+    <section id="app" class="card hidden">
+      <div class="appTop">
+        <div>
+          <h3 id="campTitle">Campanha</h3>
+          <div class="muted small" id="campMeta"></div>
+        </div>
+        <div class="row">
+          <button id="btnLeave" class="btn ghost">Sair</button>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="tab-players">Jogadores</button>
+        <button class="tab" data-tab="tab-npcs">NPCs</button>
+        <button class="tab" data-tab="tab-settings">Permissões</button>
+      </div>
+
+      <div id="tab-players" class="tabpane">
+        <div class="row space">
+          <h4>Fichas</h4>
+          <button id="btnNewPlayerChar" class="btn small">+ Nova ficha</button>
+        </div>
+        <div id="playersList" class="list"></div>
+      </div>
+
+      <div id="tab-npcs" class="tabpane hidden">
+        <div class="row space">
+          <h4>NPCs</h4>
+          <button id="btnNewNPC" class="btn small">+ Novo NPC</button>
+        </div>
+        <div id="npcsList" class="list"></div>
+      </div>
+
+      <div id="tab-settings" class="tabpane hidden">
+        <h4>O que os jogadores podem ver</h4>
+        <div class="row">
+          <label class="toggle">
+            <input type="checkbox" id="canSeeNPCs" />
+            <span>Jogadores podem ver NPCs</span>
+          </label>
+        </div>
+        <div class="row">
+          <label class="toggle">
+            <input type="checkbox" id="canSeeAllPlayers" />
+            <span>Jogadores podem ver fichas dos outros</span>
+          </label>
+        </div>
+        <div class="divider"></div>
+        <h4>Trocar senha (apenas mestre)</h4>
+        <div class="field">
+          <label>Nova senha</label>
+          <input id="newPass" type="password" placeholder="Nova senha" />
+        </div>
+        <button id="btnChangePass" class="btn">Salvar nova senha</button>
+        <p class="muted small">Dica: depois de trocar, compartilhe a nova senha com os jogadores.</p>
+      </div>
+    </section>
+
+    <footer class="foot muted small">
+      Dica: no GitHub Pages, sem Firebase nada fica compartilhado. Com Firebase, tudo salva na nuvem.
+    </footer>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
